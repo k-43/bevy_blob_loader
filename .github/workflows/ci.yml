@@ -26,7 +26,7 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: Swatinem/rust-cache@v2
       - run: nix develop -c cargo clippy --fix --no-deps
-      - uses: EndBug/add-and-commit@v9
+      - uses: EndBug/add-and-commit@v10
         with:
           message: "chore: lint"
           default_author: github_actions
@@ -41,7 +41,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
       - run: nix develop -c cargo fmt --all
       - run: nix develop -c prettier -w .
-      - uses: EndBug/add-and-commit@v9
+      - uses: EndBug/add-and-commit@v10
         with:
           message: "chore: format"
           default_author: github_actions
