@@ -18,7 +18,7 @@ jobs:
       - run: nix develop -c cargo doc --workspace --all-features --no-deps --document-private-items
       - run: nix develop -c cargo test --workspace --all-features
 
-  lint:
+  format:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -26,21 +26,7 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
       - uses: Swatinem/rust-cache@v2
       - run: nix develop -c cargo clippy --fix --no-deps
-      - uses: EndBug/add-and-commit@v10
-        with:
-          message: "chore: lint"
-          default_author: github_actions
-
-  fmt:
-    needs: lint
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
-      - uses: Swatinem/rust-cache@v2
       - run: nix develop -c cargo fmt --all
-      - run: nix develop -c prettier -w .
       - uses: EndBug/add-and-commit@v10
         with:
           message: "chore: format"
