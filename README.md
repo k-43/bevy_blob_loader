@@ -2,3 +2,7 @@
 
 Bevy plugin for loading assets from JavaScript blob URLs.
 Should only be added when targeting the web, otherwise `wasm-bindgen` will panic.
+
+## Testing
+
+View the example with `trunk serve`.

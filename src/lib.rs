@@ -31,15 +31,16 @@ pub mod source;
 pub struct BlobLoaderPlugin;
 
 impl Plugin for BlobLoaderPlugin {
-    #[allow(unused)]
+    #[cfg(not(target_family = "wasm"))]
+    fn build(&self, _app: &mut App) {}
+
+    #[cfg(target_family = "wasm")]
     fn build(&self, app: &mut App) {
-        #[cfg(target_family = "wasm")]
-        {
-            use bevy::asset::io::{AssetSource, AssetSourceId};
-            app.register_asset_source(
-                AssetSourceId::Name("blob".into()),
-                AssetSource::build().with_reader(|| Box::new(source::BlobAssetReader)),
-            );
-        }
+        use bevy::asset::io::{AssetSourceBuilder, AssetSourceId};
+
+        app.register_asset_source(
+            AssetSourceId::Name("blob".into()),
+            AssetSourceBuilder::new(|| Box::new(source::BlobAssetReader)),
+        );
     }
 }
